@@ -16,10 +16,13 @@ This is a full-stack task management application built with the MERN stack (Mong
   - A running count of selected tasks is displayed.
 - **Task Management (User)**:
   - View a paginated list of all tasks.
+  - See who created each task and when, and who last updated it and when, directly in the dashboard.
   - Select multiple tasks across different pages and perform bulk status updates (e.g., change to 'pending', 'in-progress', 'completed').
   - A running count of selected tasks is displayed.
 - **Responsive UI**: The application is designed to be fully responsive for both desktop and mobile devices using Tailwind CSS.
 - **Dummy Data**: The application automatically populates the database with dummy tasks on the first run.
+- **Audit Trail**: Each task records who created it, when it was created, who last updated it, and when it was last updated.
+- **Autopopulate Users**: On first start, the backend will automatically create a default admin user (admin@example.com / admin123) and two regular users (john@example.com / password123, jane@example.com / password123) if no users exist.
 
 ## Tech Stack
 

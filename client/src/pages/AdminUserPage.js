@@ -28,13 +28,13 @@ const AdminUserPage = () => {
   };
 
   return (
-    <div className="card shadow-sm">
-      <div className="card-header">
-        <h2 className="h2 mb-0">User Management</h2>
-      </div>
-      <div className="card-body">
+    <div className="container-fluid px-0 px-md-3">
+      <div className="card shadow-sm mx-auto" style={{maxWidth: 900}}>
+        <div className="card-header">
+          <h2 className="h2 mb-0">User Management</h2>
+        </div>
         <div className="table-responsive">
-          <table className="table table-hover table-bordered">
+          <table className="table table-hover table-bordered align-middle mb-0">
             <thead className="table-dark">
               <tr>
                 <th>Name</th>
@@ -56,7 +56,7 @@ const AdminUserPage = () => {
                   <td>
                     <button 
                       onClick={() => handleUserStatusChange(user._id, user.status)}
-                      className="btn btn-primary btn-sm"
+                      className="btn btn-primary btn-sm w-100"
                     >
                       Toggle Status
                     </button>

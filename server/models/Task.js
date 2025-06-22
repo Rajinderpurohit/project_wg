@@ -15,10 +15,21 @@ const TaskSchema = new mongoose.Schema({
     enum: ['pending', 'in-progress', 'completed'],
     default: 'pending',
   },
-  createdAt: {
-    type: Date,
-    default: Date.now,
+  user: {
+    type: mongoose.Schema.ObjectId,
+    ref: 'User',
+    required: true,
   },
-});
+  createdBy: {
+    type: mongoose.Schema.ObjectId,
+    ref: 'User',
+    required: true,
+  },
+  updatedBy: {
+    type: mongoose.Schema.ObjectId,
+    ref: 'User',
+    required: true,
+  }
+}, { timestamps: true });
 
 module.exports = mongoose.model('Task', TaskSchema); 

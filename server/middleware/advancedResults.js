@@ -16,8 +16,9 @@ const advancedResults = (model, populate) => async (req, res, next) => {
     // Create operators ($gt, $gte, etc)
     queryStr = queryStr.replace(/\b(gt|gte|lt|lte|in)\b/g, match => `$${match}`);
   
-    // Finding resource
-    query = model.find(JSON.parse(queryStr));
+    // Use advancedFilter if present (for user-specific queries)
+    const filter = req.advancedFilter || JSON.parse(queryStr);
+    query = model.find(filter);
   
     // Select Fields
     if (req.query.select) {
@@ -38,7 +39,7 @@ const advancedResults = (model, populate) => async (req, res, next) => {
     const limit = parseInt(req.query.limit, 10) || 5;
     const startIndex = (page - 1) * limit;
     const endIndex = page * limit;
-    const total = await model.countDocuments();
+    const total = await model.countDocuments(filter);
   
     query = query.skip(startIndex).limit(limit);
   
@@ -46,11 +47,9 @@ const advancedResults = (model, populate) => async (req, res, next) => {
       query = query.populate(populate);
     }
   
-    // Executing query
-    const results = await query;
-  
     // Pagination result
     const pagination = {};
+    pagination.pages = Math.ceil(total / limit);
   
     if (endIndex < total) {
       pagination.next = {
@@ -67,10 +66,8 @@ const advancedResults = (model, populate) => async (req, res, next) => {
     }
   
     res.advancedResults = {
-      success: true,
-      count: results.length,
-      pagination,
-      data: results
+      query: query,
+      pagination: pagination
     };
   
     next();

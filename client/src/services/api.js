@@ -1,6 +1,6 @@
 import axios from 'axios';
-import { AuthContext } from '../context/AuthContext'; // We will need to figure out how to get dispatch here
-import { useNavigate } from 'react-router-dom'; // And navigate
+// import { AuthContext } from '../context/AuthContext'; // We will need to figure out how to get dispatch here
+// import { useNavigate } from 'react-router-dom'; // And navigate
 
 const api = axios.create({
   baseURL: 'http://localhost:5000/api', // Adjust this if your backend runs on a different port

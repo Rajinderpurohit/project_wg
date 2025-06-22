@@ -18,15 +18,15 @@ const RegisterPage = () => {
       const { token } = res.data;
       const decoded = jwtDecode(token);
       dispatch({ type: 'LOGIN', payload: { user: {id: decoded.id, role: decoded.role}, token } });
-      navigate('/');
+      navigate('/dashboard');
     } catch (err) {
       console.error(err);
     }
   };
 
   return (
-    <div className="d-flex align-items-center justify-content-center vh-100">
-      <div className="card shadow-sm p-4" style={{width: '400px'}}>
+    <div className="container-fluid d-flex align-items-center justify-content-center min-vh-100 px-2">
+      <div className="card shadow-sm p-4 w-100" style={{maxWidth: '400px'}}>
         <h2 className="text-center mb-4">Register</h2>
         <form onSubmit={onSubmit}>
           <div className="mb-3">

@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes, Navigate, Outlet } from 'react-
 import { AuthContext } from './context/AuthContext';
 
 import Navbar from './components/Navbar';
+import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import AdminDashboard from './pages/AdminDashboard';
@@ -11,11 +12,14 @@ import AdminTaskPage from './pages/AdminTaskPage';
 import TaskDashboard from './pages/TaskDashboard';
 
 function App() {
+  const { isAuthenticated } = useContext(AuthContext);
+
   return (
     <Router>
       <Navbar />
-      <div className="container mt-4">
+      <main className="container mt-4">
         <Routes>
+          <Route path="/" element={!isAuthenticated ? <HomePage /> : <Navigate to="/dashboard" />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           
@@ -28,7 +32,7 @@ function App() {
           
           {/* User Routes */}
           <Route 
-            path="/" 
+            path="/dashboard" 
             element={
               <ProtectedRoute>
                 <TaskDashboard />
@@ -36,7 +40,7 @@ function App() {
             } 
           />
         </Routes>
-      </div>
+      </main>
     </Router>
   );
 }
@@ -48,7 +52,7 @@ const ProtectedRoute = ({ children }) => {
     return <div className="text-center mt-5"><h1>Loading...</h1></div>;
   }
 
-  return isAuthenticated ? (user?.role=='admin'?<Navigate to="/admin"/>:children) : <Navigate to="/login" />;
+  return isAuthenticated ? (user?.role==='admin'?<Navigate to="/admin"/>:children) : <Navigate to="/login" />;
 };
 
 const AdminRoute = ({ children }) => {

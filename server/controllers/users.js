@@ -4,7 +4,14 @@ const User = require('../models/User');
 // @route     GET /api/users
 // @access    Private/Admin
 exports.getUsers = async (req, res, next) => {
-  res.status(200).json(res.advancedResults);
+  const results = await res.advancedResults.query;
+
+  res.status(200).json({
+    success: true,
+    count: results.length,
+    pagination: res.advancedResults.pagination,
+    data: results
+  });
 };
 
 // @desc      Update user status
